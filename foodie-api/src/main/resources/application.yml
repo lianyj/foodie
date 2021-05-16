@@ -7,10 +7,10 @@ server:
 spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/foodie-shop-dev?useUnicode=true&characterEncoding=UTF-8&autoReconnect
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/foodie-shop-dev?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
     username: root
-    password: 12345678
+    password: root
     hikari:
       connection-timeout: 30000
       minimum-idle: 5
@@ -24,3 +24,8 @@ spring:
 mybatis:
   type-aliases-package: com.imooc.pojo
   mapper-locations: classpath:mapper/*.xml
+
+mapper:
+  mappers: com.imooc.my.mapper.MyMapper
+  not-empty: false
+  identity: MYSQL
