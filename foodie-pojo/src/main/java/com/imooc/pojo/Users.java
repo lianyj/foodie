@@ -1,8 +1,10 @@
 package com.imooc.pojo;
 
+import io.swagger.annotations.ApiModel;
+
 import javax.persistence.*;
 import java.util.Date;
-
+@ApiModel(value="用户",description="用户类")
 public class Users {
     /**
      * 主键id 用户id
