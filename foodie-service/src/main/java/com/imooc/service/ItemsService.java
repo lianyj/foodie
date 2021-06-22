@@ -4,6 +4,7 @@ import com.imooc.pojo.Items;
 import com.imooc.pojo.ItemsImg;
 import com.imooc.pojo.ItemsParam;
 import com.imooc.pojo.ItemsSpec;
+import com.imooc.pojo.vo.CommnetLevelCountVO;
 
 import java.util.List;
 
@@ -40,5 +41,11 @@ public interface ItemsService {
      * @return
      */
     public ItemsParam queryItemsParam(String itemId);
+
+    /**
+     * 根据商品id查询商品的评价等级数量
+     * @param itemId
+     */
+    public CommnetLevelCountVO queryCommentCounts(String itemId);
 
 }
