@@ -1,15 +1,14 @@
 package com.imooc.controller;
 
-import com.imooc.enums.YesOrNo;
-import com.imooc.pojo.*;
-import com.imooc.pojo.vo.CategoryVO;
+import com.imooc.pojo.Items;
+import com.imooc.pojo.ItemsImg;
+import com.imooc.pojo.ItemsParam;
+import com.imooc.pojo.ItemsSpec;
 import com.imooc.pojo.vo.CommnetLevelCountVO;
 import com.imooc.pojo.vo.ItemInfoVO;
-import com.imooc.pojo.vo.NewItemsVO;
-import com.imooc.service.CarouselService;
-import com.imooc.service.CategoryService;
 import com.imooc.service.ItemsService;
 import com.imooc.utils.IMOOCJSONResult;
+import com.imooc.utils.PagedGridResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -28,7 +27,7 @@ import java.util.List;
 @Api(value = "商品接口", tags = {"商品信息展示展示的相关接口"})
 @RestController
 @RequestMapping("/items")
-public class ItemsController {
+public class ItemsController extends BaseController{
 
     @Autowired
     private ItemsService itemsService;
@@ -66,4 +65,23 @@ public class ItemsController {
         return IMOOCJSONResult.ok(countVO);
     }
 
+    @ApiOperation(value = "查询商品评价", notes = "查询商品评价", httpMethod = "GET")
+    @ApiParam(name = "itemId",value = "商品id",required = true)
+    @GetMapping("/comments")
+    public IMOOCJSONResult comments(@RequestParam(name = "itemId",required = true) String itemId,
+                                    @RequestParam(name = "level",required = false) Integer level,
+                                    @RequestParam(name = "page",required = false) Integer page,
+                                    @RequestParam(name = "pageSize",required = false) Integer pageSize) {
+        if(StringUtils.isBlank(itemId)){
+            return IMOOCJSONResult.errorMsg(null);
+        }
+        if(page==null){
+            page =1 ;
+        }
+        if(pageSize==null){
+            pageSize = COMMENT_PAGE_SIZE;
+        }
+        PagedGridResult result = itemsService.queryPagedComments(itemId,level,page,pageSize);
+        return IMOOCJSONResult.ok(result);
+    }
 }
